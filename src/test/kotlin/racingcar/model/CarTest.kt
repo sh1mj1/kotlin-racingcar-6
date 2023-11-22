@@ -17,7 +17,7 @@ class CarTest {
     fun `Car 이름 blank 입력 예외 테스트`(input: String) {
         car = Car(input)
         assertThrows<IllegalArgumentException>(INVALID_CAR_NAME) {
-            car.validateCar()
+            car.validate()
         }
     }
 
@@ -26,7 +26,7 @@ class CarTest {
     fun `Car 이름이 5자 초과라면 예외를 던진다`(input: String) {
         car = Car(input)
         assertThrows<IllegalArgumentException>(TOO_LONG_NAME) {
-            car.validateCar()
+            car.validate()
         }
     }
 
@@ -34,7 +34,7 @@ class CarTest {
     @ValueSource(strings = ["abcd", "1234", "0000"])
     fun `Car 이름이 5자 이하 notBlank 이면 정상 실행된다`(input: String) {
         car = Car(input)
-        assertDoesNotThrow { car.validateCar() }
+        assertDoesNotThrow { car.validate() }
     }
 
     @ParameterizedTest
@@ -58,7 +58,7 @@ class CarTest {
      *
      * 리턴하는 RandomNumber 를 개발자가 입력하는 값으로 한다.
      */
-    class NumberGeneratorTest(private val returnValue: Int) : NumberGenerator() {
+    class NumberGeneratorTest(private val returnValue: Int) : NumberGenerator {
         override fun generateRandomNumber(): Int {
             return returnValue
         }
