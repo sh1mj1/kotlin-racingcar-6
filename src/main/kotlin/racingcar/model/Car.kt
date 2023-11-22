@@ -9,7 +9,7 @@ class Car(
     val name: String,
     var position: Int = 0,
 ) {
-    fun moveForward(numberGenerator: NumberGenerator = NumberGenerator()) {
+    fun moveForward(numberGenerator: NumberGenerator = NumberGeneratorImp()) {
         if (isMove(numberGenerator)) {
             position++
         }
@@ -23,19 +23,14 @@ class Car(
         return false
     }
 
+    fun validate(){
+        when{
+            name.isBlank() -> throw IllegalArgumentException(INVALID_CAR_NAME)
+            name.length > MAX_CAR_NAME_LENGTH -> throw IllegalArgumentException(TOO_LONG_NAME)
+        }
+    }
+
     override fun toString(): String {
         return "Car(name='$name', position=$position)"
-    }
-}
-
-internal fun Car.validateCar() {
-    when {
-        name.isBlank() -> {
-            throw IllegalArgumentException(INVALID_CAR_NAME)
-        }
-
-        name.length > MAX_CAR_NAME_LENGTH -> {
-            throw IllegalArgumentException(TOO_LONG_NAME)
-        }
     }
 }

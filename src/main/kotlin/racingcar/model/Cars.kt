@@ -13,7 +13,9 @@ class Cars(val carList: List<Car>) {
 
     fun validate() {
         validateDuplicate()
-        carList.forEach(Car::validateCar)
+        carList.forEach {
+            it.validate()
+        }
     }
 
     internal fun validateDuplicate() {
