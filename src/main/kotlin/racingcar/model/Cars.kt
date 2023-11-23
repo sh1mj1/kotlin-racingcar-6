@@ -30,7 +30,7 @@ class Cars(inputCars: List<String>, moveStrategy: MoveStrategy = UsingRandomNumb
         }
     }
 
-    internal fun validateDuplicate() {
+    private fun validateDuplicate() {
         val set = carList.map(Car::name).toSet()
         if (carList.size > set.size) {
             throw IllegalArgumentException(DUPLICATED_NAME)

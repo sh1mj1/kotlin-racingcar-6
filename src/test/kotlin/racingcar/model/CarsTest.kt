@@ -15,14 +15,14 @@ class CarsTest {
     @MethodSource("provideDuplicatedCars")
     fun `중복된 이름이 있으면 예외를 던진다`(cars: Cars) {
         assertThrows<IllegalArgumentException>(DUPLICATED_NAME) {
-            cars.validateDuplicate()
+            cars.validate()
         }
     }
 
     @ParameterizedTest
     @MethodSource("provideUniqueCars")
     fun `중복된 이름이 없으면 테스트를 통과한다`(cars: Cars) {
-        assertDoesNotThrow { cars.validateDuplicate() }
+        assertDoesNotThrow { cars.validate() }
     }
 
     @ParameterizedTest

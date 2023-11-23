@@ -6,7 +6,7 @@ import racingcar.config.GameConfig.MAX_CAR_NAME_LENGTH
 import racingcar.view.OutputView.Companion.CAR_POSITION_SYMBOL
 import racingcar.view.OutputView.Companion.START_LANE
 
-class Car(
+data class Car(
     val name: String,
     var position: Int = 0,
     private val moveStrategy: MoveStrategy
