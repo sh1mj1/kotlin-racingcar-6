@@ -1,5 +1,5 @@
 package racingcar.model
 
 interface MoveStrategy {
-    fun isMove(): Boolean
+    fun isMove(car: Car): Boolean
 }

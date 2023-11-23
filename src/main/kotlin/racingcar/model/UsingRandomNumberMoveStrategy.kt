@@ -5,8 +5,7 @@ import racingcar.config.GameConfig
 import racingcar.config.GameConfig.MIN_THRESHOLD
 
 class UsingRandomNumberMoveStrategy : MoveStrategy {
-
-    override fun isMove(): Boolean {
+    override fun isMove(car: Car): Boolean {
         val randomNumber = Randoms.pickNumberInRange(
             GameConfig.START_INCLUSIVE,
             GameConfig.END_INCLUSIVE

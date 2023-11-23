@@ -9,11 +9,10 @@ import racingcar.view.OutputView.Companion.START_LANE
 class Car(
     val name: String,
     var position: Int = 0,
-    private val moveStrategy: MoveStrategy = UsingRandomNumberMoveStrategy()
+    private val moveStrategy: MoveStrategy
 ) {
-
     fun move() {
-        if (moveStrategy.isMove()) {
+        if (moveStrategy.isMove(this)) {
             position++
         }
     }

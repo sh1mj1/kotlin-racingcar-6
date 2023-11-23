@@ -2,12 +2,12 @@ package racingcar.model
 
 import racingcar.config.ExceptionMessage.DUPLICATED_NAME
 
-class Cars(inputCars: List<String>) {
+class Cars(inputCars: List<String>, moveStrategy: MoveStrategy = UsingRandomNumberMoveStrategy()) {
 
     private var carList: List<Car>
 
     init {
-        carList = inputCars.map { Car(name = it) }
+        carList = inputCars.map { Car(name = it, moveStrategy = moveStrategy) }
     }
 
     fun move() {
@@ -39,5 +39,4 @@ class Cars(inputCars: List<String>) {
 
     override fun toString(): String =
         carList.joinToString("\n") { it.toString() }
-
 }

@@ -12,11 +12,12 @@ import racingcar.config.GameConfig.MIN_THRESHOLD
 class CarTest {
 
     private lateinit var car: Car
+    private var moveStrategy: MoveStrategy = UsingRandomNumberMoveStrategy()
 
     @ParameterizedTest
     @ValueSource(strings = ["", " ", "\n"])
     fun `Car 이름 blank 입력 예외 테스트`(input: String) {
-        car = Car(input)
+        car = Car(name = input, moveStrategy = moveStrategy)
         assertThrows<IllegalArgumentException>(INVALID_CAR_NAME) {
             car.validate()
         }
@@ -25,7 +26,7 @@ class CarTest {
     @ParameterizedTest
     @ValueSource(strings = ["abcdef", "123456", "000000"])
     fun `Car 이름이 5자 초과라면 예외를 던진다`(input: String) {
-        car = Car(input)
+        car = Car(name = input, moveStrategy = moveStrategy)
         assertThrows<IllegalArgumentException>(TOO_LONG_NAME) {
             car.validate()
         }
@@ -34,7 +35,7 @@ class CarTest {
     @ParameterizedTest
     @ValueSource(strings = ["abcd", "1234", "0000"])
     fun `Car 이름이 5자 이하 notBlank 이면 정상 실행된다`(input: String) {
-        car = Car(input)
+        car = Car(name = input, moveStrategy = moveStrategy)
         assertDoesNotThrow { car.validate() }
     }
 
@@ -61,6 +62,6 @@ class CarTest {
     }
 
     class UsingRandomNumberMoveStrategyTest(private val inputValue: Int) : MoveStrategy {
-        override fun isMove(): Boolean = (inputValue >= MIN_THRESHOLD)
+        override fun isMove(car: Car): Boolean = (inputValue >= MIN_THRESHOLD)
     }
 }
