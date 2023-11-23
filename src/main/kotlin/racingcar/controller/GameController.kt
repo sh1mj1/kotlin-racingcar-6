@@ -1,6 +1,5 @@
 package racingcar.controller
 
-import racingcar.model.Car
 import racingcar.model.Cars
 import racingcar.view.InputView
 import racingcar.view.OutputView
@@ -14,7 +13,7 @@ class GameController(
 
     fun startGame() {
         outputView.startGuide()
-        cars = Cars(inputView.cars().map { Car(name = it) })
+        cars = Cars(inputCars = inputView.cars())
         cars.validate()
 
         outputView.tryCountGuide()
@@ -28,9 +27,7 @@ class GameController(
     private fun startTurn(tryCount: Int) {
         outputView.resultGuide()
         for (i in 1..tryCount) {
-            cars.carList.forEach {
-                it.moveForward()
-            }
+            cars.move()
             outputView.race(cars)
         }
     }

@@ -11,7 +11,7 @@ class UsingRandomNumberMoveStrategy : MoveStrategy {
             GameConfig.START_INCLUSIVE,
             GameConfig.END_INCLUSIVE
         )
-        if(randomNumber >= MIN_THRESHOLD) {
+        if (randomNumber >= MIN_THRESHOLD) {
             return true
         }
         return false

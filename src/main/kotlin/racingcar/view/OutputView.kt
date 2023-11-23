@@ -10,9 +10,7 @@ class OutputView {
     fun resultGuide() = println(RESULT_GUIDE_MESSAGE)
 
     fun race(cars: Cars) {
-        cars.carList.forEach {
-            println(it.name + START_LANE + CAR_POSITION_SYMBOL.repeat(it.position))
-        }
+        println(cars)
         println()
     }
 

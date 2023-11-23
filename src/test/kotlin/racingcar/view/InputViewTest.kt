@@ -30,7 +30,7 @@ class InputViewTest {
 
     // inputTryCount test
     @ParameterizedTest
-    @ValueSource(strings = ["abc", "-1", "${MAX_TRY_COUNT+1}"])
+    @ValueSource(strings = ["abc", "-1", "${MAX_TRY_COUNT + 1}"])
     fun `숫자 입력 예외 테스트`(input: String) {
         assertThrows<IllegalArgumentException>(INVALID_INTEGER) {
             inputView.tryCount(input)

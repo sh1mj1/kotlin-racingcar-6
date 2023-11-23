@@ -2,7 +2,19 @@ package racingcar.model
 
 import racingcar.config.ExceptionMessage.DUPLICATED_NAME
 
-class Cars(val carList: List<Car>) {
+class Cars(inputCars: List<String>) {
+
+    private var carList: List<Car>
+
+    init {
+        carList = inputCars.map { Car(name = it) }
+    }
+
+    fun move() {
+        carList.forEach {
+            it.move()
+        }
+    }
 
     fun decideWinner(): List<String> {
         val maxPosition = carList.maxOf(Car::position)
@@ -25,8 +37,7 @@ class Cars(val carList: List<Car>) {
         }
     }
 
-    override fun toString(): String {
-        return "Cars(carList=$carList)"
-    }
+    override fun toString(): String =
+        carList.joinToString("\n") { it.toString() }
 
 }
