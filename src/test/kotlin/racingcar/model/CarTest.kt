@@ -1,12 +1,13 @@
 package racingcar.model
 
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import racingcar.config.ExceptionMessage.INVALID_CAR_NAME
 import racingcar.config.ExceptionMessage.TOO_LONG_NAME
+import racingcar.config.GameConfig.MIN_THRESHOLD
 
 class CarTest {
 
@@ -40,27 +41,26 @@ class CarTest {
     @ParameterizedTest
     @ValueSource(ints = [4, 5, 6])
     fun `생성한 랜덤 수가 4 이상이면 앞으로 나아간다`(randomNumber: Int) {
-        car = Car(name = "car", position = 0)
-        car.moveForward(NumberGeneratorTest(randomNumber))
-        Assertions.assertThat(car.position).isEqualTo(1)
+        // given
+        car = Car(name = "car", position = 0, moveStrategy = UsingRandomNumberMoveStrategyTest(randomNumber))
+        // when
+        car.move()
+        // then
+        assertThat(car.position).isEqualTo(1)
     }
 
     @ParameterizedTest
     @ValueSource(ints = [0, 1, 2, 3])
     fun `생성한 랜덤 수가 3 이하이면 앞으로 나아가지 않는다`(randomNumber: Int) {
-        car = Car(name = "car", position = 0)
-        car.moveForward(NumberGeneratorTest(randomNumber))
-        Assertions.assertThat(car.position).isEqualTo(0)
+        // given
+        car = Car(name = "car", position = 0, moveStrategy = UsingRandomNumberMoveStrategyTest(randomNumber))
+        // when
+        car.move()
+        // then
+        assertThat(car.position).isEqualTo(0)
     }
 
-    /**
-     * 테스트 용도의 클래스
-     *
-     * 리턴하는 RandomNumber 를 개발자가 입력하는 값으로 한다.
-     */
-    class NumberGeneratorTest(private val returnValue: Int) : NumberGenerator {
-        override fun generateRandomNumber(): Int {
-            return returnValue
-        }
+    class UsingRandomNumberMoveStrategyTest(private val inputValue: Int) : MoveStrategy {
+        override fun isMove(): Boolean = (inputValue >= MIN_THRESHOLD)
     }
 }
